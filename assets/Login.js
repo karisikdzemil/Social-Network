@@ -1,3 +1,8 @@
-
-
-fetch("http://localhost:3000/users").then(response => response.json).then(data => console.log(data))
+class Register{
+    constructor(nickname, email, password){
+        this.nickname = nickname;
+        this.email = email;
+        this.password = password;
+    }
+    
+}

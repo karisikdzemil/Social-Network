@@ -143,6 +143,7 @@ h3{
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-top: 30px;
 }
 
 .modal-button:hover {
@@ -151,7 +152,7 @@ h3{
 
 .register-modal {
     width: 30%;
-    height: 50vh;
+    height: 60vh;
     position: absolute;
     top: 20%;
     left:  35%;
