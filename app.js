@@ -4,16 +4,20 @@ const registerModal = document.querySelector(".register-modal");
 const loginModal = document.querySelector(".login-modal");
 const blackDrop = document.querySelector(".black-drop");
 
-const registerNickname = document.getElementById("register-nickname");
-const registerEmail = document.getElementById("register-email");
-const registerPass = document.getElementById("register-password");
-const registerPass2 = document.getElementById("register-password-repeat");
+const registerNickname = document.getElementById("register-nickname").value;
+const registerEmail = document.getElementById("register-email").value;
+const registerPass = document.getElementById("register-password").value;
+const registerPass2 = document.getElementById("register-password-repeat").value;
 const registerModalBtn = document.getElementById("register-btn");
 
 
 const validateRegisterData = (event) => {
     event.preventDefault();
-    console.log(registerNickname, registerEmail, registerPass, registerPass2)
+    if(!/^[a-zA-Z][a-zA-Z0-9_]{2,14}$/.test(registerNickname)){
+        document.getElementById("wrong-enter-nickname").textContent = "radi";
+    }else{
+        document.getElementById("wrong-enter-nickname").textContent = '';
+    }
 }
 
 const showLoginModalHandler = () => {
