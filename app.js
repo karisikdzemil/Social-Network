@@ -14,8 +14,8 @@ const registerModalBtn = document.getElementById("register-btn");
 const validateRegisterData = (event) => {
     event.preventDefault();
     const dzemil = new Register();
-    console.log(registerNickname.value, registerEmail.value, registerPass.value, registerPass2.value)
-    console.log(dzemil)
+    dzemil.success(registerNickname.value, registerEmail.value, registerPass.value, registerPass2.value);
+    console.log(dzemil);
 }
 
 const showLoginModalHandler = () => {
