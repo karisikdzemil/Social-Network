@@ -9,6 +9,7 @@ const registerEmail = document.getElementById("register-email");
 const registerPass = document.getElementById("register-password");
 const registerPass2 = document.getElementById("register-password-repeat");
 const registerModalBtn = document.getElementById("register-btn");
+const loginValidateBtn = document.getElementById("loginValidateBtn");
 
 
 const validateRegisterData = (event) => {
@@ -16,6 +17,15 @@ const validateRegisterData = (event) => {
     const dzemil = new Register();
     dzemil.success(registerNickname.value, registerEmail.value, registerPass.value, registerPass2.value);
     console.log(dzemil);
+    registerNickname.value = '';
+    registerEmail.value = '';
+    registerPass.value = '';
+    registerPass2.value = '';
+    showRegisterModalHandler();
+}
+
+const validateLoginData = () => {
+    
 }
 
 const showLoginModalHandler = () => {
@@ -28,6 +38,7 @@ const showRegisterModalHandler = () => {
     blackDrop.classList.toggle("visible");
 }
 
-registerModalBtn.addEventListener("click", validateRegisterData)
+loginValidateBtn.addEventListener("click", validateLoginData);
+registerModalBtn.addEventListener("click", validateRegisterData);
 loginBtn.addEventListener("click", showLoginModalHandler);
 registerBtn.addEventListener("click", showRegisterModalHandler);
