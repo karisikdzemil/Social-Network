@@ -10,22 +10,27 @@ const registerPass = document.getElementById("register-password");
 const registerPass2 = document.getElementById("register-password-repeat");
 const registerModalBtn = document.getElementById("register-btn");
 const loginValidateBtn = document.getElementById("loginValidateBtn");
+const loginEmail = document.getElementById("login-email");
+const loginPass = document.getElementById("login-password");
 
 
 const validateRegisterData = (event) => {
     event.preventDefault();
-    const dzemil = new Register();
-    dzemil.success(registerNickname.value, registerEmail.value, registerPass.value, registerPass2.value);
-    console.log(dzemil);
+    const user = new Register();
+    user.success(registerNickname.value, registerEmail.value, registerPass.value, registerPass2.value);
     registerNickname.value = '';
     registerEmail.value = '';
     registerPass.value = '';
     registerPass2.value = '';
-    showRegisterModalHandler();
+    // showRegisterModalHandler();
 }
 
-const validateLoginData = () => {
-    
+const validateLoginData = async () => {
+    const findUser = new Login();
+    await findUser.success(loginEmail.value, loginPass.value, (updateUser) => {
+        console.log(updateUser)
+    });
+    // console.log(findUser)
 }
 
 const showLoginModalHandler = () => {

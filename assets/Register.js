@@ -43,7 +43,7 @@ class Register {
       }
     }
     if (n && e && p) {
-      this.createUser();
+      this.createUser(); 
     }
   }
 
