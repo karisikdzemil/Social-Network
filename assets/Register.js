@@ -69,8 +69,8 @@ class Register {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
-        location.href = "/vibely.html"
+        location.href = "/vibely.html";
+        return data;
       })
       .catch((error) => {
         console.error(error);

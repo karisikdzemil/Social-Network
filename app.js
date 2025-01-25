@@ -17,12 +17,14 @@ const loginPass = document.getElementById("login-password");
 const validateRegisterData = (event) => {
     event.preventDefault();
     const user = new Register();
-    user.success(registerNickname.value, registerEmail.value, registerPass.value, registerPass2.value);
+    const proba = user.success(registerNickname.value, registerEmail.value, registerPass.value, registerPass2.value);
     registerNickname.value = '';
     registerEmail.value = '';
     registerPass.value = '';
     registerPass2.value = '';
     // showRegisterModalHandler();
+    // console.log(proba)
+    // const sesija = new Session()
 }
 
 const validateLoginData = async () => {
