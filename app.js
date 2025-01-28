@@ -22,9 +22,6 @@ const validateRegisterData = (event) => {
     registerEmail.value = '';
     registerPass.value = '';
     registerPass2.value = '';
-    // showRegisterModalHandler();
-    // console.log(proba)
-    // const sesija = new Session()
 }
 
 const validateLoginData = async () => {
