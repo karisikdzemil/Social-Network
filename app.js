@@ -16,23 +16,17 @@ const loginPass = document.getElementById("login-password");
 
 const validateRegisterData = (event) => {
     event.preventDefault();
-    const user = new Register();
-    const proba = user.success(registerNickname.value, registerEmail.value, registerPass.value, registerPass2.value);
+    const user = new User();
+    user.success(registerNickname.value, registerEmail.value, registerPass.value, registerPass2.value);
     registerNickname.value = '';
     registerEmail.value = '';
     registerPass.value = '';
     registerPass2.value = '';
-    // showRegisterModalHandler();
-    // console.log(proba)
-    // const sesija = new Session()
 }
 
-const validateLoginData = async () => {
-    const findUser = new Login();
-    await findUser.success(loginEmail.value, loginPass.value, (updateUser) => {
-        console.log(updateUser)
-    });
-    // console.log(findUser)
+const validateLoginData = () => {
+    const user = new User();
+    user.loginUser(loginEmail.value, loginPass.value);
 }
 
 const showLoginModalHandler = () => {
