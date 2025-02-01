@@ -1,7 +1,10 @@
 class User {
-  nickname = "";
-  email = "";
-  password = "";
+  user_id;
+  nickname;
+  email;
+  password;
+
+
   success(nickname, email, pass, pass2) {
     this.nickname = nickname;
     this.email = email;
@@ -10,7 +13,6 @@ class User {
     let e = false;
     let p = false;
 
-    console.log(nickname, email, pass, pass2);
     if (!/^[a-zA-Z][a-zA-Z0-9_]{4,14}$/.test(nickname)) {
       document.getElementById("wrong-enter-nickname").textContent =
         "Enter a name with more than 5 letters!";
@@ -54,7 +56,6 @@ class User {
       password: this.password,
     };
     data = JSON.stringify(data);
-    console.log(data);
     fetch(`https://678fd9eb49875e5a1a9399f8.mockapi.io/users`, {
       method: "POST",
       headers: {
@@ -69,7 +70,8 @@ class User {
         return response.json();
       })
       .then((data) => {
-        location.href = "/vibely.html";
+        this.user_id = data.id;
+        // location.href = "/vibely.html";
         return data;
       })
       .catch((error) => {
@@ -82,14 +84,15 @@ class User {
     .then(response => response.json())
     .then(data => {
       const user = data.find((e) => e.email === emailOf && e.password === passOf)
-      console.log(emailOf)
         if(!user){
             document.getElementById("wrong-login").textContent = 'Invalid email or password';
         }else{
+            this.user_id = data.id;
             this.email = emailOf;
             this.password = passOf;
             document.getElementById("wrong-login").textContent = '';
-            location.href = '/vibely.html';
+            // location.href = '/vibely.html';
+            return user;
         }
     })
     .catch(error => console.log(error))

@@ -13,20 +13,21 @@ const loginValidateBtn = document.getElementById("loginValidateBtn");
 const loginEmail = document.getElementById("login-email");
 const loginPass = document.getElementById("login-password");
 
-
-const validateRegisterData = (event) => {
+const validateRegisterData = async (event) => {
     event.preventDefault();
     const user = new User();
-    user.success(registerNickname.value, registerEmail.value, registerPass.value, registerPass2.value);
+    await user.success(registerNickname.value, registerEmail.value, registerPass.value, registerPass2.value);
     registerNickname.value = '';
     registerEmail.value = '';
     registerPass.value = '';
     registerPass2.value = '';
+    console.log(user.user_id); 
 }
 
 const validateLoginData = () => {
     const user = new User();
     user.loginUser(loginEmail.value, loginPass.value);
+    console.log(user);
 }
 
 const showLoginModalHandler = () => {
