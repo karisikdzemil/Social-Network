@@ -70,11 +70,9 @@ class User {
         return response.json();
       })
       .then((data) => {
-        // this.user_id = data.id;
-        // location.href = "/vibely.html";
+        location.href = "/vibely.html";
         const session = new Session();
         session.user_id = data.id;
-        console.log(session);
         session.startSession();
         return data;
       })
@@ -83,9 +81,11 @@ class User {
       });
   }
 
-  // get(user_id){
-
-  // }
+  async get(user_id){
+    const response = await fetch("https://678fd9eb49875e5a1a9399f8.mockapi.io/users/" + user_id)
+    const data = await response.json();
+    return data;
+  }
 
   loginUser(emailOf, passOf){
     fetch(`https://678fd9eb49875e5a1a9399f8.mockapi.io/users`)
@@ -99,7 +99,10 @@ class User {
             this.email = emailOf;
             this.password = passOf;
             document.getElementById("wrong-login").textContent = '';
-            // location.href = '/vibely.html';
+            location.href = '/vibely.html';
+            const session = new Session();
+            session.user_id = data.id;
+            session.startSession();
             return user;
         }
     })

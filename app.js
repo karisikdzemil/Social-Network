@@ -13,21 +13,26 @@ const loginValidateBtn = document.getElementById("loginValidateBtn");
 const loginEmail = document.getElementById("login-email");
 const loginPass = document.getElementById("login-password");
 
-const validateRegisterData = async (event) => {
+let session = new Session();
+session = session.getSession();
+
+if(session !== ""){
+    location.href = 'vibely.html'
+}
+
+const validateRegisterData = (event) => {
     event.preventDefault();
     const user = new User();
-    await user.success(registerNickname.value, registerEmail.value, registerPass.value, registerPass2.value);
+    user.success(registerNickname.value, registerEmail.value, registerPass.value, registerPass2.value);
     registerNickname.value = '';
     registerEmail.value = '';
     registerPass.value = '';
     registerPass2.value = '';
-    console.log(user.user_id); 
 }
 
 const validateLoginData = () => {
     const user = new User();
     user.loginUser(loginEmail.value, loginPass.value);
-    console.log(user);
 }
 
 const showLoginModalHandler = () => {
