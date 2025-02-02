@@ -3,9 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./assets/vibely.js"></script>
+    <title>Vibely</title>
 </head>
 <body>
-    <h1 id="proooba">RADI</h1>
+    <div class="home-main">
+        <div class="profile-side">
+            <div id="profile">
+                <img id="profile-img" src="./images/user-photo.webp" alt="">
+                <h4>username</h4>
+                <h4>email@gmail.com</h4>
+               <div>
+                <button class="modal-button">Change</button>
+                <button class="modal-button">Log Out</button>
+               </div>
+            </div>
+        </div>
+        <div class="home-side">
+            <div class="post-div">
+                <input type="text" placeholder="Write something and publish it...">
+                <button id="post-btn">Post</button>
+            </div>
+            <ul id="posts">
+                <li id="single-post"></li>
+            </ul>
+        </div>
+    </div>
 </body>
 </html>
