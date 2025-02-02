@@ -1,7 +1,5 @@
 class Session{
-    constructor(user){
-        this.user = user;
-    }
+   user_id;
 
     startSession(){
         console.log(this.user);

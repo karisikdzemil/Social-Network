@@ -1,5 +1,5 @@
 class User {
-  user_id;
+  // user_id;
   nickname;
   email;
   password;
@@ -70,14 +70,22 @@ class User {
         return response.json();
       })
       .then((data) => {
-        this.user_id = data.id;
+        // this.user_id = data.id;
         // location.href = "/vibely.html";
+        const session = new Session();
+        session.user_id = data.id;
+        console.log(session);
+        session.startSession();
         return data;
       })
       .catch((error) => {
         console.error(error);
       });
   }
+
+  // get(user_id){
+
+  // }
 
   loginUser(emailOf, passOf){
     fetch(`https://678fd9eb49875e5a1a9399f8.mockapi.io/users`)
