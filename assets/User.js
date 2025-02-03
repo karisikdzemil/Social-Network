@@ -101,7 +101,7 @@ class User {
             document.getElementById("wrong-login").textContent = '';
             location.href = '/vibely.html';
             const session = new Session();
-            session.user_id = data.id;
+            session.user_id = user.id;
             session.startSession();
             return user;
         }

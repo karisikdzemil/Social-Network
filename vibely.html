@@ -12,17 +12,32 @@
 </head>
 <body>
     <div class="home-main">
+        <div class="black-drop"></div>
+        <div class="changeProfile-modal">
+            <button class="close-modal-btn">X</button>
+            <h2>Change Profile</h2>
+           <div class="profile-values">
+               <input id="change-username" type="text">
+            <input id="change-email" type="text">
+            <input id="change-password" type="text">
+           </div>
+           <div class="change-profile-btns">
+            <button  class="modal-button">Change</button>
+            <button class="remove-post-btn">Delete</button>
+           </div>
+        </div>
         <div class="profile-side">
             <div id="profile">
                 <img id="profile-img" src="./images/user-photo.webp" alt="">
                 <h4 id="profile-username">username</h4>
                 <h4 id="profile-email">email@gmail.com</h4>
                <div>
-                <button class="modal-button">Change</button>
-                <button class="modal-button">Log Out</button>
+                <button id="changeModalBtn" class="modal-button">Change</button>
+                <button id="logout" class="modal-button">Log Out</button>
                </div>
             </div>
         </div>
+       
         <div class="home-side">
 
             <div class="post-div">
@@ -44,6 +59,7 @@
                             <span><button class="post-btn"><i class="fa-solid fa-comment"></i></button> <p>comments</p></span>
                             <button class="remove-post-btn">Remove</button>
                         </div>
+
                     </div>
                 </li>
 
