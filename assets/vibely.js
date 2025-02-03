@@ -1,9 +1,16 @@
+const changeUsername = document.getElementById("change-username");
+const cahngeEmail = document.getElementById("change-email");
+const changePass = document.getElementById("change-password");
+
 let session = new Session();
 session = session.getSession();
 
 let globalUser;
 
+console.log(session === "")
+
 if(session !== ""){
+    // location.href = "/vibely.html";
     const getUser = async () =>{
         console.log(session)
         let user = new User();
@@ -19,14 +26,30 @@ if(session !== ""){
         location.href = "/index.html";
     });
 
+    document.getElementById("changeUserBtn").addEventListener("click", async () => {
+        let user = new User();
+        await user.deleteUser(session);
+        const destroy = new Session();
+        destroy.destroySession();
+        location.href = "/index.html";
+    })
+
+    document.getElementById("putUserBtn").addEventListener("click", async () => {
+        let user = new User();
+        user = await user.changeUser(cahngeEmail.value, changeUsername.value, changePass.value, session);
+        document.getElementById("profile-username").textContent = user.username;
+        document.getElementById("profile-email").textContent = user.email;
+        document.querySelector(".black-drop").classList.toggle("visible");
+        document.querySelector(".changeProfile-modal").classList.toggle("visible");
+    })
 
     document.getElementById("changeModalBtn").addEventListener("click", () => {
         document.querySelector(".black-drop").classList.toggle("visible");
         document.querySelector(".changeProfile-modal").classList.toggle("visible");
 
-        document.getElementById("change-username").value = globalUser.username;
-        document.getElementById("change-email").value = globalUser.email;
-        document.getElementById("change-password").value = globalUser.password;
+        changeUsername.value = globalUser.username;
+        cahngeEmail.value = globalUser.email;
+        changePass.value = globalUser.password;
     })
     document.querySelector(".close-modal-btn").addEventListener("click", () => {
         document.querySelector(".black-drop").classList.toggle("visible");
@@ -34,4 +57,7 @@ if(session !== ""){
     })
 
     getUser();
+}else{
+    location.href = "/index.html";
+
 }
