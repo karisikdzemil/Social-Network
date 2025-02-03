@@ -79,7 +79,7 @@ class User {
         console.error(error);
       });
   }
-
+  
   async get(user_id) {
     const response = await fetch(
       "https://678fd9eb49875e5a1a9399f8.mockapi.io/users/" + user_id
