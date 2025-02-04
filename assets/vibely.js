@@ -9,12 +9,10 @@ session = session.getSession();
 
 let globalUser;
 
-console.log(session === "")
 
 if(session !== ""){
     // location.href = "/vibely.html";
     const getUser = async () =>{
-        console.log(session)
         let user = new User();
         user = await user.get(session);
         globalUser = user;
@@ -30,28 +28,12 @@ if(session !== ""){
         posts.forEach(async el => {
             let user = new User();
             user = await user.get(el.user_id);
-            // ul.innerHTML += `
-            //        <li class="single-post">
-            //         <div class="post-content">
-            //             <p>${el.content}</p>
-            //         </div>
-            //         <div class="post-actions">
-            //             <p>Author: <span>${user.username}</span></p>
 
-            //             <div class="post-buttons">
-            //                <span> <button class="post-btn"><i class="fa-solid fa-thumbs-up"></i></button> <p>${el.likes} likes</p></span>
-            //                 <span><button class="post-btn"><i class="fa-solid fa-comment"></i></button> <p>comments</p></span>
-            //             </div>
-            //         </div>
-            //     </li>
-            // `;
-
-            console.log(session === el.user_id)
             // const removePostBtn = '<button class="remove-post-btn">Remove</button>';
             const postButtons = document.querySelector(".post-buttons");
             if(session === el.user_id){
                 ul.innerHTML += `
-                <li class="single-post">
+                <li class="single-post" data-post_id="${el.id}">
                  <div class="post-content">
                      <p>${el.content}</p>
                  </div>
@@ -68,7 +50,7 @@ if(session !== ""){
          `;
             }else{
                 ul.innerHTML += `
-                <li class="single-post">
+                <li class="single-post" data-post_id="${el.id}">
                  <div class="post-content">
                      <p>${el.content}</p>
                  </div>
@@ -85,6 +67,8 @@ if(session !== ""){
             }
         });
     }
+
+    
     getPosts();
     document.getElementById("post-btn").addEventListener("click", async () => {
         const writePostContent = document.getElementById("writePostContent");
@@ -97,8 +81,8 @@ if(session !== ""){
         let user = new User();
         user = await user.get(post.user_id)
         console.log(user)
-        ul.innerHTML += `
-              <li class="single-post">
+        ul.innerHTML = `
+              <li class="single-post" data-post_id="${post.id}">
                     <div class="post-content">
                         <p>${post.content}</p>
                     </div>
@@ -113,12 +97,22 @@ if(session !== ""){
                     </div>
                 </li>
 
-        `;
+        ` + ul.innerHTML;
 
 
     }else{
         alert("You can't post empty!")
     }
+    })
+
+    ul.addEventListener("click", (event) => {
+        if(event.target.textContent === "Remove"){
+            const targetLi = event.target.closest("LI");
+            const postId = targetLi.getAttribute("data-post_id");
+            const post = new Post();
+            post.deletePost(postId);
+            targetLi.remove();
+        }
     })
     
     document.getElementById("logout").addEventListener("click", () => {

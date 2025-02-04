@@ -205,13 +205,16 @@ h3{
 }
 .home-main{
     max-width: 100%;
-    min-height: 200vh;
-    background-color: beige;
-    display: flex;
-    flex-direction: row;
-    background-image: url("./images/home-background.jpg");
+    /* min-height: 100vh; */
+    /* background-color: beige; */
+     display: flex;
+    flex-direction: row; 
+     /* background-image: url("./images/home-background.jpg"); */
 }
-
+.vibely-body{
+    background-image: url("./images/home-background.jpg"); 
+    background-size: cover;
+}
 .profile-side{
     width: 30%;
     height: 100vh;

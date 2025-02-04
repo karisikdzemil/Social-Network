@@ -39,4 +39,11 @@ class Post{
             throw Error("Something went wrong!!");
         }
     }
+    async deletePost(post_id){
+        const response = await fetch("https://678fd9eb49875e5a1a9399f8.mockapi.io/posts/" + post_id, {
+            method: "DELETE"
+          })
+          const data = await response.json();
+          return data;
+    }
 }
