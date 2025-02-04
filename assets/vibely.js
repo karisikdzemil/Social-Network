@@ -28,43 +28,26 @@ if(session !== ""){
         posts.forEach(async el => {
             let user = new User();
             user = await user.get(el.user_id);
-
-            // const removePostBtn = '<button class="remove-post-btn">Remove</button>';
-            const postButtons = document.querySelector(".post-buttons");
+            let removePostBtn = '';
             if(session === el.user_id){
-                ul.innerHTML += `
-                <li class="single-post" data-post_id="${el.id}">
-                 <div class="post-content">
-                     <p>${el.content}</p>
-                 </div>
-                 <div class="post-actions">
-                     <p>Author: <span>${user.username}</span></p>
-
-                     <div class="post-buttons">
-                        <span> <button class="post-btn"><i class="fa-solid fa-thumbs-up"></i></button> <p>${el.likes} likes</p></span>
-                         <span><button class="post-btn"><i class="fa-solid fa-comment"></i></button> <p>comments</p></span>
-                         <button class="remove-post-btn">Remove</button>
-                     </div>
-                 </div>
-             </li>
-         `;
-            }else{
-                ul.innerHTML += `
-                <li class="single-post" data-post_id="${el.id}">
-                 <div class="post-content">
-                     <p>${el.content}</p>
-                 </div>
-                 <div class="post-actions">
-                     <p>Author: <span>${user.username}</span></p>
-
-                     <div class="post-buttons">
-                        <span> <button class="post-btn"><i class="fa-solid fa-thumbs-up"></i></button> <p>${el.likes} likes</p></span>
-                         <span><button class="post-btn"><i class="fa-solid fa-comment"></i></button> <p>comments</p></span>
-                     </div>
-                 </div>
-             </li>
-         `;
+             removePostBtn = '<button class="remove-post-btn">Remove</button>';
             }
+            ul.innerHTML += `
+            <li class="single-post" data-post_id="${el.id}">
+             <div class="post-content">
+                 <p>${el.content}</p>
+             </div>
+             <div class="post-actions">
+                 <p>Author: <span>${user.username}</span></p>
+
+                 <div class="post-buttons">
+                    <span> <button class="post-btn"><i class="fa-solid fa-thumbs-up"></i></button> <p>${el.likes} likes</p></span>
+                     <span><button class="post-btn"><i class="fa-solid fa-comment"></i></button> <p>comments</p></span>
+                     ${removePostBtn}
+                 </div>
+             </div>
+         </li>
+     `;
         });
     }
 
@@ -112,6 +95,22 @@ if(session !== ""){
             const post = new Post();
             post.deletePost(postId);
             targetLi.remove();
+        }
+    });
+
+    const commentPostHandler = () => {
+
+    }
+
+    ul.addEventListener("click", (event) => {
+        const li = event.target.closest("LI");
+        const spanTags = li.querySelectorAll(".post-buttons span");
+        // console.log(spanTags[0])
+        if(event.target.closest("span") === spanTags[0]){
+            console.log("like");
+        }
+         if(event.target.closest("span") === spanTags[1]){
+            commentPostHandler();
         }
     })
     
