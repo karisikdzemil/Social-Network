@@ -40,10 +40,22 @@ const showLoginModalHandler = () => {
     blackDrop.classList.toggle("visible");
 }
 
+document.getElementById("close-login-modal").addEventListener("click", () => {
+    loginModal.classList.toggle("visible");
+    blackDrop.classList.toggle("visible");
+})
+
+
 const showRegisterModalHandler = () => {
     registerModal.classList.toggle("visible");
     blackDrop.classList.toggle("visible");
 }
+
+document.getElementById("close-register-modal").addEventListener("click", () => {
+    registerModal.classList.toggle("visible");
+    blackDrop.classList.toggle("visible");
+})
+
 
 loginValidateBtn.addEventListener("click", validateLoginData);
 registerModalBtn.addEventListener("click", validateRegisterData);
