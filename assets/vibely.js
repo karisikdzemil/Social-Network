@@ -116,26 +116,44 @@ if(session !== ""){
         }
     });
 
-    const commentPostHandler = (event) => {
+    const commentPostHandler = async (event) => {
         const targetLi = event.target.closest("li");
         const newPartLi = targetLi.querySelector(".comments-add-read");
         const liInput = targetLi.querySelector("input");
-        const liBtn =  targetLi.querySelector(".post-comment-btn");
+        const liBtn = targetLi.querySelector(".post-comment-btn");
         const ul = targetLi.querySelector("ul");
         targetLi.classList.toggle("single-post-newPart");
         newPartLi.classList.toggle("add-comment-visible");
         const postId = targetLi.getAttribute("data-post_id");
-
-        liBtn.addEventListener("click", async (event) => {
-            event.preventDefault()
+    
+        if (ul.dataset.loaded) return;
+        ul.dataset.loaded = true;
+    
+        let allComments = new Comment();
+        allComments = await allComments.getComments();
+        
+        allComments.forEach(async el => {
+            if (el.post_id === postId) {
+                let user = new User();
+                user = await user.get(el.user_id);
+                ul.innerHTML += `<li><p>Author: ${user.username}</p>${el.content}</li>`;
+            }
+        });
+    
+        liBtn.replaceWith(liBtn.cloneNode(true)); 
+        const newLiBtn = targetLi.querySelector(".post-comment-btn");
+    
+        newLiBtn.addEventListener("click", async (event) => {
+            event.preventDefault();
             const comment = new Comment(session, postId, liInput.value);
-            comment.create();
+            await comment.create();
             let user = new User();
             user = await user.get(comment.user_id);
-            ul.innerHTML += ` <li><p>Author: ${user.username}</p>${comment.content}</li>`;
-            liInput.value = '';
-        })
-    }
+            ul.innerHTML += `<li><p>Author: ${user.username}</p>${comment.content}</li>`;
+            liInput.value = ''; // Reset inputa
+        });
+    };
+    
 
     ul.addEventListener("click", (event) => {
         const li = event.target.closest("LI");
