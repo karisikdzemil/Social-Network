@@ -46,4 +46,34 @@ class Post{
           const data = await response.json();
           return data;
     }
+
+    async onePost(post_id){
+        try{
+            const response = await fetch("https://678fd9eb49875e5a1a9399f8.mockapi.io/posts/"  + post_id)
+            const data = await response.json()
+            console.log(data);
+            return data;
+        }
+        catch{
+            throw Error("Something went wrong!!");
+        }
+    }
+
+    async likePost(postId, userId, content, likes){
+        let post = {
+            userId, 
+            content, 
+            likes
+        }
+        post = JSON.stringify(post);
+        const response = await fetch("https://678fd9eb49875e5a1a9399f8.mockapi.io/posts/" + postId, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: post,
+          })
+            const data = await response.json();
+            return data;
+    }
 }

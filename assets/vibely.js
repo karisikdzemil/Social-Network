@@ -41,7 +41,7 @@ if(session !== ""){
                  <p>Author: <span>${user.username}</span></p>
 
                  <div class="post-buttons">
-                    <span> <button class="post-btn"><i class="fa-solid fa-thumbs-up"></i></button> <p>${el.likes} likes</p></span>
+                    <span> <button class="post-btn"><i class="fa-solid fa-thumbs-up"></i></button> <p class="post-likescls">${el.likes} likes</p></span>
                      <span><button class="post-btn"><i class="fa-solid fa-comment"></i></button> <p>comments</p></span>
                      ${removePostBtn}
                  </div>
@@ -82,7 +82,7 @@ if(session !== ""){
                         <p>Author: <span>${user.username}</span></p>
 
                         <div class="post-buttons">
-                           <span> <button class="post-btn"><i class="fa-solid fa-thumbs-up"></i></button> <p>${post.likes} likes</p></span>
+                           <span> <button class="post-btn"><i class="fa-solid fa-thumbs-up"></i></button> <p class="post-likescls">${post.likes} likes</p></span>
                             <span><button class="post-btn"><i class="fa-solid fa-comment"></i></button> <p>comments</p></span>
                             <button class="remove-post-btn">Remove</button>
                         </div>
@@ -150,9 +150,23 @@ if(session !== ""){
             let user = new User();
             user = await user.get(comment.user_id);
             ul.innerHTML += `<li><p>Author: ${user.username}</p>${comment.content}</li>`;
-            liInput.value = ''; // Reset inputa
+            liInput.value = ''; 
         });
     };
+
+    const likePostHandler = async (event) => {
+        const btn = event.target.closest("button");
+        const targetLi = event.target.closest("li");
+        const postId = targetLi.getAttribute("data-post_id");
+        if(!btn.disabled){
+            const post = new Post();
+            let getPost = await post.onePost(postId);
+            post.likePost(getPost.id, getPost.user_id, getPost.content, getPost.likes + 1);
+            targetLi.querySelector(".post-likescls").innerText = `${getPost.likes + 1} likes`;
+        }
+        btn.disabled = true;
+
+    }
     
 
     ul.addEventListener("click", (event) => {
@@ -160,12 +174,12 @@ if(session !== ""){
         const spanTags = li.querySelectorAll(".post-buttons span");
         // console.log(spanTags[0])
         if(event.target.closest("span") === spanTags[0]){
-            console.log("like");
+            likePostHandler(event);
         }
          if(event.target.closest("span") === spanTags[1]){
-            commentPostHandler(event);
+            commentPostHandler(event, li);
         }
-    })
+    });
     
     document.getElementById("logout").addEventListener("click", () => {
         const destroy = new Session();
