@@ -46,6 +46,15 @@ if(session !== ""){
                      ${removePostBtn}
                  </div>
              </div>
+
+               <div class="comments-add-read">
+                        <form action="">
+                            <input type="text" placeholder="Add comment...">
+                            <button class="post-comment-btn">Post</button>
+                        </form>
+                        <ul>
+                        </ul>
+                    </div>
          </li>
      `;
         });
@@ -78,6 +87,15 @@ if(session !== ""){
                             <button class="remove-post-btn">Remove</button>
                         </div>
                     </div>
+
+                     <div class="comments-add-read">
+                        <form action="">
+                            <input type="text" placeholder="Add comment...">
+                            <button class="post-comment-btn">Post</button>
+                        </form>
+                        <ul>
+                        </ul>
+                    </div>
                 </li>
 
         ` + ul.innerHTML;
@@ -98,8 +116,25 @@ if(session !== ""){
         }
     });
 
-    const commentPostHandler = () => {
+    const commentPostHandler = (event) => {
+        const targetLi = event.target.closest("li");
+        const newPartLi = targetLi.querySelector(".comments-add-read");
+        const liInput = targetLi.querySelector("input");
+        const liBtn =  targetLi.querySelector(".post-comment-btn");
+        const ul = targetLi.querySelector("ul");
+        targetLi.classList.toggle("single-post-newPart");
+        newPartLi.classList.toggle("add-comment-visible");
+        const postId = targetLi.getAttribute("data-post_id");
 
+        liBtn.addEventListener("click", async (event) => {
+            event.preventDefault()
+            const comment = new Comment(session, postId, liInput.value);
+            comment.create();
+            let user = new User();
+            user = await user.get(comment.user_id);
+            ul.innerHTML += ` <li><p>Author: ${user.username}</p>${comment.content}</li>`;
+            liInput.value = '';
+        })
     }
 
     ul.addEventListener("click", (event) => {
@@ -110,7 +145,7 @@ if(session !== ""){
             console.log("like");
         }
          if(event.target.closest("span") === spanTags[1]){
-            commentPostHandler();
+            commentPostHandler(event);
         }
     })
     
