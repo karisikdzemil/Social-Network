@@ -11,7 +11,6 @@ let globalUser;
 
 
 if(session !== ""){
-    // location.href = "/vibely.html";
     const getUser = async () =>{
         let user = new User();
         user = await user.get(session);
@@ -59,20 +58,17 @@ if(session !== ""){
      `;
         });
     }
-
-    
     getPosts();
+
     document.getElementById("post-btn").addEventListener("click", async () => {
         const writePostContent = document.getElementById("writePostContent");
         if(writePostContent.value !== ''){
         let post = new Post(session, writePostContent.value, 0);
         post = await post.createPost();
-        console.log(post)
         writePostContent.value = '';
 
         let user = new User();
         user = await user.get(post.user_id)
-        console.log(user)
         ul.innerHTML = `
               <li class="single-post" data-post_id="${post.id}">
                     <div class="post-content">
@@ -165,19 +161,17 @@ if(session !== ""){
             targetLi.querySelector(".post-likescls").innerText = `${getPost.likes + 1} likes`;
         }
         btn.disabled = true;
-
     }
     
 
     ul.addEventListener("click", (event) => {
         const li = event.target.closest("LI");
         const spanTags = li.querySelectorAll(".post-buttons span");
-        // console.log(spanTags[0])
         if(event.target.closest("span") === spanTags[0]){
             likePostHandler(event);
         }
          if(event.target.closest("span") === spanTags[1]){
-            commentPostHandler(event, li);
+            commentPostHandler(event);
         }
     });
     
